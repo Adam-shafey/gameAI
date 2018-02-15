@@ -14,12 +14,30 @@ class IO(object):
                 #print(data)
         return data
 
+    #solution is a list of arrays with the solution path
+    #result is a list of arrays that contain letters (state of the solution)
+    #numOfMoves is an array of the num of moves performed in each puzzle
+    #time is optional.
     @staticmethod
-    def printResult(result, timeTaken=None):#time is optional & result is an array of letters in the form of strings
+    def printResult(solution, result, numOfMoves, timeTaken):
         thefile = open('Output.txt', 'w')
-        for item in result:
-            thefile.write(item.capitalize())
-        if(timeTaken):
+        for index in range(len(solution)): #Loops through solutions
+            thefile.write("Puzzle: " + str(index + 1))
             thefile.write("\n")
-            thefile.write("%s" % timeTaken + "ms")
+            thefile.write("Solution: ")
+            for item in solution[index]:
+                thefile.write(item.capitalize())
+                thefile.write(' ')
+            thefile.write("\n")
+            thefile.write("Result: ")
+            for item in result[index]:
+                thefile.write(item.capitalize())
+                thefile.write(' ')
+            if(timeTaken):
+                thefile.write("\n" + "Time: ")
+                thefile.write("%s" % timeTaken[index] + "ms")
+            thefile.write("\n")
+            thefile.write("Number of Moves: " + str(numOfMoves[index]))
+            thefile.write("\n")
+            thefile.write("\n")
         thefile.write("\n")

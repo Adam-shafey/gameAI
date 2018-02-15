@@ -1,5 +1,5 @@
 import IO
-
+import time
 
 class Game:
     numOfMoves = 0
@@ -10,6 +10,7 @@ class Game:
     solutions = []
     allMoves = []
     currentLocation = 0
+    gameTime = []
 
     # Loads all the levels from the file
     def loadFile(fileName):
@@ -33,22 +34,27 @@ class Game:
         hasWon = False
         move = ' '
         print(Game.outputCurrentGame())
+        startTime = time.time()
         while hasWon == False:  # Keeps looping until player has won
             print('Make a move based on the blank space (r,l,u,d): ')  # player can move based on empty space
             move = input()
             if (Game.isLegal(move) == True):  # Checks if legal
                 print(' ')
                 Game.swap(move)
+                #adding 65 to the int in chr will give you the correct A-O ascii
                 Game.currentSolution.append(chr(Game.currentLocation + 65))
                 Game.numOfMoves = Game.numOfMoves + 1
                 print(Game.outputCurrentGame())
             if (Game.winCondition() == True):  # Win condition
+                endTime = time.time()
+                #times one thousand to get millisecs because the current time is in seconds with decimals
+                #then the float is converted to an int
+                totalTime = int((endTime - startTime) * 1000)
+                Game.gameTime.append(totalTime)
                 print(' ')
                 print('You won Puzzle ' + str(Game.level) + '!')
                 tempArray = Game.currentSolution
-                for index in range(len(Game.currentGameArray)):  # Checks for ' ' in the array and turns it into 'e'
-                    if Game.currentGameArray[index] == ' ':
-                        Game.currentGameArray[index] = 'e'
+                Game.currentGameArray[Game.currentLocation] = 'e'
                 Game.completedLevels.append(Game.currentGameArray)  # stores the completed states of the puzzles
                 Game.solutions.append(tempArray)  # stores solution
                 Game.allMoves.append(Game.numOfMoves)  # stores number of moves
@@ -187,7 +193,7 @@ while stop == 'n':  # loops each complete level, allows user to quit in between 
     print(' ')
     levelNum = levelNum + 1
     if stop != 'n':
-        IO.IO().printResult(Game.solutions, Game.completedLevels, Game.allMoves)  # Prints to output file
+        IO.IO().printResult(Game.solutions, Game.completedLevels, Game.allMoves, Game.gameTime)  # Prints to output file
         print('Thanks for playing!')
 
 print()
