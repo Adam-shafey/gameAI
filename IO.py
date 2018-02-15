@@ -11,7 +11,7 @@ class IO(object):
             for line in fobj:
                 lineData = [letter for letter in line.split()]
                 data.append(lineData)
-                print(data)
+                #print(data)
         return data
 
     @staticmethod
