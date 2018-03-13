@@ -1,109 +1,113 @@
 import IO
 import time
 
-class Game:
-    numOfMoves = 0
-    currentGameArray = []
-    level = 0
-    completedLevels = []
-    currentSolution = []
-    solutions = []
-    allMoves = []
-    currentLocation = 0
-    gameTime = []
+
+class Game(object):
+    def __init__(self):
+        self.numOfMoves = 0
+        self.currentGameArray = []
+        self.level = 0
+        self.completedLevels = []
+        self.currentSolution = []
+        self.solutions = []
+        self.allMoves = []
+        self.currentLocation = 0
+        self.gameTime = []
 
     # Loads all the levels from the file
-    def loadFile(fileName):
+    def loadFile(self, fileName):
         tempList = IO.IO().readInitial(fileName)
         return tempList
 
     # Loads the particular level for the game in a 2D array
-    def loadLevel(levelArray):
-        Game.level = Game.level + 1
-        for index in range(len(levelArray)):  # Checks for 'e' in the array and turns it into an empty string
-            if levelArray[index] == 'e':
-                levelArray[index] = ' '
-        Game.numOfMoves = 0
-        Game.currentGameArray = levelArray
-        Game.currentSolution = []
-        return Game.currentGameArray
+    def loadLevel(self, levelArray):
+        self.level = self.level + 1
+        self.numOfMoves = 0
+        self.currentGameArray = levelArray
+        self.currentSolution = []
+        return self.currentGameArray
 
     # Loops through a level until the player wins
-    def startGameLoop(currentLevel):
-        Game.getCurrentLoc()
+    def startAIGameLoop(self, currentArray):
+        self.getCurrentLocAI()
+        root = self.currentGameArray
+
+
+    def startGameLoop(self, currentLevel):
+        self.getCurrentLoc()
         hasWon = False
         move = ' '
-        print(Game.outputCurrentGame())
+        print(self.outputCurrentGame())
         startTime = time.time()
         while hasWon == False:  # Keeps looping until player has won
             print('Make a move based on the blank space (r,l,u,d): ')  # player can move based on empty space
             move = input()
-            if (Game.isLegal(move) == True):  # Checks if legal
+            if (self.isLegal(move) == True):  # Checks if legal
                 print(' ')
-                Game.swap(move)
+                self.swap(move)
                 #adding 65 to the int in chr will give you the correct A-O ascii
-                Game.currentSolution.append(chr(Game.currentLocation + 65))
-                Game.numOfMoves = Game.numOfMoves + 1
-                print(Game.outputCurrentGame())
-            if (Game.winCondition() == True):  # Win condition
+                self.currentSolution.append(chr(self.currentLocation + 65))
+                self.numOfMoves = self.numOfMoves + 1
+                print(self.outputCurrentGame())
+            if (self.winCondition() == True):  # Win condition
                 endTime = time.time()
                 #times one thousand to get millisecs because the current time is in seconds with decimals
                 #then the float is converted to an int
                 totalTime = int((endTime - startTime) * 1000)
-                Game.gameTime.append(totalTime)
+                self.gameTime.append(totalTime)
                 print(' ')
-                print('You won Puzzle ' + str(Game.level) + '!')
-                tempArray = Game.currentSolution
-                Game.currentGameArray[Game.currentLocation] = 'e'
-                Game.completedLevels.append(Game.currentGameArray)  # stores the completed states of the puzzles
-                Game.solutions.append(tempArray)  # stores solution
-                Game.allMoves.append(Game.numOfMoves)  # stores number of moves
+                print('You won Puzzle ' + str(self.level) + '!')
+                tempArray = self.currentSolution
+                self.currentGameArray[self.currentLocation] = 'e'
+                self.completedLevels.append(self.currentGameArray)  # stores the completed states of the puzzles
+                self.solutions.append(tempArray)  # stores solution
+                self.allMoves.append(self.numOfMoves)  # stores number of moves
                 print(' ')
                 hasWon = True
 
     # Outputs the current game board so that the user sees what state the game is in.
-    def outputCurrentGame():
-        print('Puzzle: ' + str(Game.level))
-        print('Number of moves: ' + str(Game.numOfMoves))
+    def outputCurrentGame(self):
+        print('Puzzle: ' + str(self.level))
+        print('Number of moves: ' + str(self.numOfMoves))
         print('---------------------')
-        print('| ' + Game.currentGameArray[0] + ' | ' + Game.currentGameArray[1] + ' | ' + Game.currentGameArray[
-            2] + ' | ' + Game.currentGameArray[3] + ' | ' + Game.currentGameArray[4] + ' |')
+        print('| ' + self.currentGameArray[0] + ' | ' + self.currentGameArray[1] + ' | ' + self.currentGameArray[
+            2] + ' | ' + self.currentGameArray[3] + ' | ' + self.currentGameArray[4] + ' |')
         print('---------------------')
-        print('| ' + Game.currentGameArray[5] + ' | ' + Game.currentGameArray[6] + ' | ' + Game.currentGameArray[
-            7] + ' | ' + Game.currentGameArray[8] + ' | ' + Game.currentGameArray[9] + ' |')
+        print('| ' + self.currentGameArray[5] + ' | ' + self.currentGameArray[6] + ' | ' + self.currentGameArray[
+            7] + ' | ' + self.currentGameArray[8] + ' | ' + self.currentGameArray[9] + ' |')
         print('---------------------')
-        print('| ' + Game.currentGameArray[10] + ' | ' + Game.currentGameArray[11] + ' | ' + Game.currentGameArray[
-            12] + ' | ' + Game.currentGameArray[13] + ' | ' + Game.currentGameArray[14] + ' |')
+        print('| ' + self.currentGameArray[10] + ' | ' + self.currentGameArray[11] + ' | ' + self.currentGameArray[
+            12] + ' | ' + self.currentGameArray[13] + ' | ' + self.currentGameArray[14] + ' |')
         print('---------------------')
         return ' '
 
     # Checks to make sure the move is legal (based on the empty space movement)
-    def isLegal(move):
+    def isLegal(self, move):
         if move == 'r':  # cannot move right if the empty space is in the last column
-            if (Game.currentLocation == 4 or Game.currentLocation == 9 or Game.currentLocation == 14):
+            if (self.currentLocation == 4 or self.currentLocation == 9 or self.currentLocation == 14):
                 print('**This is an illegal move, try again**')
                 print(' ')
                 return False
             else:
                 return True
         if move == 'l':  # cannot move left if the empty space is in the first column
-            if (Game.currentLocation == 0 or Game.currentLocation == 5 or Game.currentLocation == 10):
+            if (self.currentLocation == 0 or self.currentLocation == 5 or self.currentLocation == 10):
                 print('**This is an illegal move, try again**')
                 print(' ')
                 return False
             else:
                 return True
         if move == 'u':  # cannot move up if the empty space is in the first row
-            if (Game.currentLocation == 0 or Game.currentLocation == 1 or Game.currentLocation == 2 or
-                    Game.currentLocation == 3 or Game.currentLocation == 4):
+            if (self.currentLocation == 0 or self.currentLocation == 1 or self.currentLocation == 2 or
+                    self.currentLocation == 3 or self.currentLocation == 4):
                 print('**This is an illegal move, try again**')
                 print(' ')
                 return False
             else:
                 return True
         if move == 'd':  # cannot move down if the empty space is in the last row
-            if (Game.currentLocation == 10 or Game.currentLocation == 11 or Game.currentLocation == 12
-                    or Game.currentLocation == 13 or Game.currentLocation == 14):
+            if (self.currentLocation == 10 or self.currentLocation == 11 or self.currentLocation == 12
+                    or self.currentLocation == 13 or self.currentLocation == 14):
                 print('**This is an illegal move, try again**')
                 print(' ')
                 return False
@@ -111,91 +115,86 @@ class Game:
                 return True
 
     #finds current location of empty space. Only needs to be used once
-    def getCurrentLoc():
-        tempArray = Game.currentGameArray
-        for index in range(len(tempArray)):
-            if tempArray[index] == ' ':
-                Game.currentLocation = index
-
+    def getCurrentLoc(self):
+        for index in range(len(self.currentGameArray)):
+            if self.currentGameArray[index] == 'e':
+                self.currentGameArray[index] = ' '
+                self.currentLocation = index
 
     # Swaps the empty space with the other element (moving piece)
-    def swap(move):
+    def swap(self, move):
 
         if move == 'r':
-            position = Game.currentLocation
-            Game.currentGameArray[position] = Game.currentGameArray[position + 1]
+            position = self.currentLocation
+            self.currentGameArray[position] = self.currentGameArray[position + 1]
             position = position + 1
-            Game.currentGameArray[position] = ' '
-            Game.currentLocation = position
+            self.currentGameArray[position] = ' '
+            self.currentLocation = position
         if move == 'l':
-            position = Game.currentLocation
-            Game.currentGameArray[position] = Game.currentGameArray[position - 1]
+            position = self.currentLocation
+            self.currentGameArray[position] = self.currentGameArray[position - 1]
             position = position - 1
-            Game.currentGameArray[position] = ' '
-            Game.currentLocation = position
+            self.currentGameArray[position] = ' '
+            self.currentLocation = position
 
         if move == 'u':
-            position = Game.currentLocation
-            Game.currentGameArray[position] = Game.currentGameArray[position - 5]
+            position = self.currentLocation
+            self.currentGameArray[position] = self.currentGameArray[position - 5]
             position = position - 5
-            Game.currentGameArray[position] = ' '
-            Game.currentLocation = position
+            self.currentGameArray[position] = ' '
+            self.currentLocation = position
 
         if move == 'd':
-            position = Game.currentLocation
-            Game.currentGameArray[position] = Game.currentGameArray[position + 5]
+            position = self.currentLocation
+            self.currentGameArray[position] = self.currentGameArray[position + 5]
             position = position + 5
-            Game.currentGameArray[position] = ' '
-            Game.currentLocation = position
-
+            self.currentGameArray[position] = ' '
+            self.currentLocation = position
 
     # Winning condition: the first row is the same as the last row
-    def winCondition():
-        if (Game.currentGameArray[0] == Game.currentGameArray[10] and
-                Game.currentGameArray[1] == Game.currentGameArray[11] and
-                Game.currentGameArray[2] == Game.currentGameArray[12] and
-                Game.currentGameArray[3] == Game.currentGameArray[13] and
-                Game.currentGameArray[4] == Game.currentGameArray[14]):
-            return True
-        else:
-            return False
+    def winCondition(self):
+        return (self.currentGameArray[0:5]==self.currentGameArray[10:15])
 
 
 # ===================================Main Program================================================
-print('Welcome to the Game')
-print(' ')
-print(' ')
-levelNum = 0  # used to indicate current level
-stop = 'n'  # used to indicate when user wants to quit or all levels are done
-allLevels = Game.loadFile('InputFile.txt')  # Loads all levels from file
 
-while stop == 'n':  # loops each complete level, allows user to quit in between levels.
+    def runProgram(self):
+        print('Welcome to the Game')
+        print(' ')
+        print(' ')
+        levelNum = 0  # used to indicate current level
+        stop = 'n'  # used to indicate when user wants to quit or all levels are done
+        #g = Game()
+        x = 'InputFile.txt'
+        allLevels = self.loadFile(x)  # Loads all levels from file
 
-    print('==============')
-    print('Puzzle ' + str(levelNum + 1))
-    print('==============')
-    print(' ')
-    print(' ')
+        while stop == 'n':  # loops each complete level, allows user to quit in between levels.
 
-    currentLevel = Game.loadLevel(allLevels[levelNum])  # loads level
-    Game.startGameLoop(currentLevel)  # Starts game loop of current level
-    print(' ')
-    print(' ')
+            print('==============')
+            print('Puzzle ' + str(levelNum + 1))
+            print('==============')
+            print(' ')
+            print(' ')
 
-    if len(allLevels) > (levelNum + 1):  # Asks player if they'd like to quit
-        print('Would you like to quit? (enter y or n)')
-        stop = input()
-    else:
-        print('No more puzzles!')  # Quits since there are no more puzzles
-        stop = ' '
+            currentLevel = self.loadLevel(allLevels[levelNum])  # loads level
+            self.startGameLoop(currentLevel)  # Starts game loop of current level
+            print(' ')
+            print(' ')
 
-    print(' ')
-    print(' ')
-    levelNum = levelNum + 1
-    if stop != 'n':
-        IO.IO().printResult(Game.solutions, Game.completedLevels, Game.allMoves, Game.gameTime)  # Prints to output file
-        print('Thanks for playing!')
+            if len(allLevels) > (levelNum + 1):  # Asks player if they'd like to quit
+                print('Would you like to quit? (enter y or n)')
+                stop = input()
+            else:
+                print('No more puzzles!')  # Quits since there are no more puzzles
+                stop = ' '
 
-print()
-print()
-input('Press ENTER to exit')
+            print(' ')
+            print(' ')
+            levelNum = levelNum + 1
+        if stop != 'n':
+            IO.IO().printResult(self.solutions, self.completedLevels, self.allMoves, self.gameTime)  # Prints to output file
+            print('Thanks for playing!')
+
+        print()
+        print()
+        input('Press ENTER to exit')
