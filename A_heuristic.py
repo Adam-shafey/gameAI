@@ -89,81 +89,94 @@ class State(object):
                 #       tally = tally + 0
 
                 # they don't match, so we calculate nearest distance to x[0]
-            elif (self.grid[10] == self.grid[1] or self.grid[10] == self.grid[5]):
+            elif (self.grid[10] == self.grid[1] and self.grid[1] != self.grid[11]) or self.grid[10] == self.grid[5]:
                 tally = tally + 1
-            elif self.grid[10] == self.grid[2] or self.grid[10] == self.grid[6]:
+            elif (self.grid[10] == self.grid[2] and self.grid[2] != self.grid[12]) or self.grid[10] == self.grid[6]:
                 tally = tally + 2
-            elif self.grid[10] == self.grid[3] or self.grid[10] == self.grid[7] or self.grid[10] == self.grid[11]:
+            elif (self.grid[10] == self.grid[3] and self.grid[3] != self.grid[13]) or self.grid[10] == self.grid[7] or \
+                (self.grid[10] == self.grid[11] and self.grid[11] != self.grid[1]):
                 tally = tally + 3
-            elif self.grid[10] == self.grid[4] or self.grid[10] == self.grid[8] or self.grid[10] == self.grid[12]:
+            elif (self.grid[10] == self.grid[4] and self.grid[4] != self.grid[14]) or self.grid[10] == self.grid[8] or \
+                (self.grid[10] == self.grid[12] and self.grid[12] != self.grid[2]):
                 tally = tally + 4
-            elif self.grid[10] == self.grid[9] or self.grid[10] == self.grid[13]:
+            elif self.grid[10] == self.grid[9] or (self.grid[10] == self.grid[13] and self.grid[13] != self.grid[3]):
                 tally = tally + 5
-            elif self.grid[10] == self.grid[14]:
+            elif self.grid[10] == self.grid[14] and self.grid[14] != self.grid[4]:
                 tally = tally + 6
 
             if self.grid[1] == self.grid[11]:
                 tally = tally + 0
                 #  elif self.currentLocation == 1:
                 #     tally = tally + 0
-            elif self.grid[11] == self.grid[0] or self.grid[11] == self.grid[2] or self.grid[11] == self.grid[6]:
+            elif (self.grid[11] == self.grid[0] and self.grid[0] != self.grid[10]) or \
+                    (self.grid[11] == self.grid[2] and self.grid[2] != self.grid[12]) or self.grid[11] == self.grid[6]:
                 tally = tally + 1
-            elif self.grid[11] == self.grid[3] or self.grid[11] == self.grid[5] or self.grid[11] == self.grid[7]:
+            elif (self.grid[11] == self.grid[3] and self.grid[3] != self.grid[13]) or self.grid[11] == self.grid[5] or \
+                    self.grid[11] == self.grid[7]:
                 tally = tally + 2
-            elif self.grid[11] == self.grid[4] or self.grid[11] == self.grid[8] or self.grid[11] == self.grid[10] or \
-                    self.grid[11] == self.grid[12]:
+            elif (self.grid[11] == self.grid[4] and self.grid[4] != self.grid[14]) or self.grid[11] == self.grid[8] or \
+                    (self.grid[11] == self.grid[10] and self.grid[10] != self.grid[0]) or \
+                    (self.grid[11] == self.grid[12] and self.grid[12] != self.grid[2]):
                 tally = tally + 3
-            elif self.grid[11] == self.grid[9] or self.grid[11] == self.grid[13]:
+            elif self.grid[11] == self.grid[9] or (self.grid[11] == self.grid[13] and self.grid[13] != self.grid[3]):
                 tally = tally + 4
-            elif self.grid[11] == self.grid[14]:
+            elif self.grid[11] == self.grid[14] and self.grid[14] != self.grid[4]:
                 tally = tally + 5
 
             if self.grid[2] == self.grid[12]:
                 tally = tally + 0
                 # elif self.currentLocation == 2:
                 #   tally = tally + 0
-            elif self.grid[12] == self.grid[1] or self.grid[12] == self.grid[3] or self.grid[12] == self.grid[7]:
+            elif (self.grid[12] == self.grid[1] and self.grid[1] != self.grid[11]) or \
+                    (self.grid[12] == self.grid[3] and self.grid[3] != self.grid[13]) or self.grid[12] == self.grid[7]:
                 tally = tally + 1
-            elif self.grid[12] == self.grid[0] or self.grid[12] == self.grid[4] or self.grid[12] == self.grid[6] or \
+            elif (self.grid[12] == self.grid[0] and self.grid[0] != self.grid[10]) or \
+                    (self.grid[12] == self.grid[4] and self.grid[4] != self.grid[14]) or self.grid[12] == self.grid[6] or \
                     self.grid[12] == self.grid[8]:
                 tally = tally + 2
-            elif self.grid[12] == self.grid[5] or self.grid[12] == self.grid[9] or self.grid[12] == self.grid[11] or \
-                    self.grid[12] == self.grid[13]:
+            elif self.grid[12] == self.grid[5] or self.grid[12] == self.grid[9] or (self.grid[12] == self.grid[11] and \
+                self.grid[11] != self.grid[1]) or (self.grid[12] == self.grid[13] and self.grid[13] != self.grid[3]):
                 tally = tally + 3
-            elif self.grid[12] == self.grid[10] or self.grid[12] == self.grid[14]:
+            elif (self.grid[12] == self.grid[10] and self.grid[10] != self.grid[0]) or \
+                    (self.grid[12] == self.grid[14] and self.grid[14] != self.grid[4]):
                 tally = tally + 4
 
             if self.grid[3] == self.grid[13]:
                 tally = tally + 0
                 # elif self.currentLocation == 3:
                 #   tally = tally + 0
-            elif self.grid[13] == self.grid[2] or self.grid[13] == self.grid[4] or self.grid[13] == self.grid[8]:
+            elif (self.grid[13] == self.grid[2] and self.grid[2] != self.grid[12]) or \
+                    (self.grid[13] == self.grid[4] and self.grid[4] != self.grid[14]) or self.grid[13] == self.grid[8]:
                 tally = tally + 1
-            elif self.grid[13] == self.grid[1] or self.grid[13] == self.grid[7] or self.grid[13] == self.grid[9]:
+            elif (self.grid[13] == self.grid[1] and self.grid[1] != self.grid[11]) or self.grid[13] == self.grid[7] or \
+                    self.grid[13] == self.grid[9]:
                 tally = tally + 2
-            elif self.grid[13] == self.grid[0] or self.grid[13] == self.grid[6] or self.grid[13] == self.grid[12] or \
-                    self.grid[13] == self.grid[14]:
+            elif (self.grid[13] == self.grid[0] and self.grid[0] != self.grid[10]) or self.grid[13] == self.grid[6] or \
+                    (self.grid[13] == self.grid[12] and self.grid[12] != self.grid[2]) or \
+                    (self.grid[13] == self.grid[14] and self.grid[14] != self.grid[4]):
                 tally = tally + 3
-            elif self.grid[13] == self.grid[5] or self.grid[13] == self.grid[11]:
+            elif self.grid[13] == self.grid[5] or (self.grid[13] == self.grid[11] and self.grid[11] != self.grid[1]):
                 tally = tally + 4
-            elif self.grid[13] == self.grid[10]:
+            elif self.grid[13] == self.grid[10] and self.grid[10] != self.grid[0]:
                 tally = tally + 5
 
             if self.grid[4] == self.grid[14]:
                 tally = tally + 0
                 # elif self.currentLocation == 4:
                 #   tally = tally + 0
-            elif self.grid[14] == self.grid[3] or self.grid[14] == self.grid[9]:
+            elif (self.grid[14] == self.grid[3] and self.grid[3] != self.grid[13]) or self.grid[14] == self.grid[9]:
                 tally = tally + 1
-            elif self.grid[14] == self.grid[2] or self.grid[14] == self.grid[8]:
+            elif (self.grid[14] == self.grid[2] and self.grid[2] != self.grid[12]) or self.grid[14] == self.grid[8]:
                 tally = tally + 2
-            elif self.grid[14] == self.grid[1] or self.grid[14] == self.grid[7] or self.grid[14] == self.grid[13]:
+            elif (self.grid[14] == self.grid[1] and self.grid[1] != self.grid[11]) or self.grid[14] == self.grid[7] or \
+                    (self.grid[14] == self.grid[13] and self.grid[13] != self.grid[3]):
                 tally = tally + 3
-            elif self.grid[14] == self.grid[0] or self.grid[14] == self.grid[6] or self.grid[14] == self.grid[12]:
+            elif (self.grid[14] == self.grid[0] and self.grid[0] != self.grid[10]) or self.grid[14] == self.grid[6] or \
+                    (self.grid[14] == self.grid[12] and self.grid[12] != self.grid[2]):
                 tally = tally + 4
-            elif self.grid[14] == self.grid[5] or self.grid[14] == self.grid[11]:
+            elif self.grid[14] == self.grid[5] or (self.grid[14] == self.grid[11] and self.grid[11] != self. grid[1]):
                 tally = tally + 5
-            elif self.grid[14] == self.grid[10]:
+            elif self.grid[14] == self.grid[10] and self.grid[10] != self.grid[0]:
                 tally = tally + 6
 
             tally2 = 0
@@ -173,81 +186,93 @@ class State(object):
                 # elif self.currentLocation == 10:
                 #   tally = tally + 0
                 # they don't match
-            elif self.grid[0] == self.grid[11] or self.grid[0] == self.grid[5]:
+            elif (self.grid[0] == self.grid[11] and self.grid[11] != self.grid[1]) or self.grid[0] == self.grid[5]:
                 tally2 = tally2 + 1
-            elif self.grid[0] == self.grid[12] or self.grid[0] == self.grid[6]:
+            elif (self.grid[0] == self.grid[12] and self.grid[12] != self.grid[2]) or self.grid[0] == self.grid[6]:
                 tally2 = tally2 + 2
-            elif self.grid[0] == self.grid[13] or self.grid[0] == self.grid[7] or self.grid[0] == self.grid[1]:
+            elif (self.grid[0] == self.grid[13] and self.grid[13] != self.grid[3]) or self.grid[0] == self.grid[7] or \
+                    (self.grid[0] == self.grid[1] and self.grid[1] != self.grid[11]):
                 tally2 = tally2 + 3
-            elif self.grid[0] == self.grid[14] or self.grid[0] == self.grid[8] or self.grid[0] == self.grid[2]:
+            elif (self.grid[0] == self.grid[14] and self.grid[14] != self.grid[4]) or self.grid[0] == self.grid[8] or \
+                    (self.grid[0] == self.grid[2] and self.grid[2] != self.grid[12]):
                 tally2 = tally2 + 4
-            elif self.grid[0] == self.grid[9] or self.grid[0] == self.grid[3]:
+            elif self.grid[0] == self.grid[9] or (self.grid[0] == self.grid[3] and self.grid[3] != self.grid[13]):
                 tally2 = tally2 + 5
-            elif self.grid[0] == self.grid[4]:
+            elif self.grid[0] == self.grid[4] and self.grid[4] != self.grid[14]:
                 tally2 = tally2 + 6
 
             if self.grid[1] == self.grid[11]:
                 tally2 = tally2 + 0
                 # elif self.currentLocation == 11:
                 #    tally = tally + 0
-            elif self.grid[1] == self.grid[10] or self.grid[1] == self.grid[12] or self.grid[1] == self.grid[6]:
+            elif (self.grid[1] == self.grid[10] and self.grid[10] != self.grid[0]) or \
+                    (self.grid[1] == self.grid[12] and self.grid[12] != self.grid[2]) or self.grid[1] == self.grid[6]:
                 tally2 = tally2 + 1
-            elif self.grid[1] == self.grid[13] or self.grid[1] == self.grid[5] or self.grid[1] == self.grid[7]:
+            elif (self.grid[1] == self.grid[13] and self.grid[13] != self.grid[3]) or \
+                    self.grid[1] == self.grid[5] or self.grid[1] == self.grid[7]:
                 tally2 = tally2 + 2
-            elif self.grid[1] == self.grid[14] or self.grid[1] == self.grid[8] or self.grid[1] == self.grid[0] or \
-                    self.grid[1] == self.grid[2]:
+            elif (self.grid[1] == self.grid[14] and self.grid[14] != self.grid[4]) or self.grid[1] == self.grid[8] or \
+                    (self.grid[1] == self.grid[0] and self.grid[0] != self.grid[10]) or \
+                    (self.grid[1] == self.grid[2] and self.grid[2] != self.grid[12]):
                 tally2 = tally2 + 3
-            elif self.grid[1] == self.grid[9] or self.grid[1] == self.grid[3]:
+            elif self.grid[1] == self.grid[9] or (self.grid[1] == self.grid[3] and self.grid[3] != self.grid[13]):
                 tally2 = tally2 + 4
-            elif self.grid[1] == self.grid[4]:
+            elif self.grid[1] == self.grid[4] and self.grid[4] != self.grid[14]:
                 tally2 = tally2 + 5
 
             if self.grid[2] == self.grid[12]:
                 tally2 = tally2 + 0
                 # elif self.currentLocation == 12:
                 #   tally = tally + 0
-            elif self.grid[2] == self.grid[11] or self.grid[2] == self.grid[13] or self.grid[2] == self.grid[7]:
+            elif (self.grid[2] == self.grid[11] and self.grid[11] != self.grid[1]) or \
+                    (self.grid[2] == self.grid[13] and self.grid[13] != self.grid[3]) or self.grid[2] == self.grid[7]:
                 tally2 = tally2 + 1
-            elif self.grid[2] == self.grid[10] or self.grid[2] == self.grid[14] or self.grid[2] == self.grid[6] or \
+            elif (self.grid[2] == self.grid[10] and self.grid[10] != self.grid[0]) or \
+                    (self.grid[2] == self.grid[14] and self.grid[14] != self.grid[4]) or self.grid[2] == self.grid[6] or \
                     self.grid[2] == self.grid[8]:
                 tally2 = tally2 + 2
-            elif self.grid[2] == self.grid[5] or self.grid[2] == self.grid[9] or self.grid[2] == self.grid[1] or \
-                    self.grid[2] == self.grid[3]:
+            elif self.grid[2] == self.grid[5] or self.grid[2] == self.grid[9] or (self.grid[2] == self.grid[1] and \
+                    self.grid[1] != self.grid[11]) or (self.grid[2] == self.grid[3] and self.grid[13] != self.grid[3]):
                 tally2 = tally2 + 3
-            elif self.grid[2] == self.grid[0] or self.grid[2] == self.grid[4]:
+            elif (self.grid[2] == self.grid[0] and self.grid[0] != self.grid[10]) or \
+                    (self.grid[2] == self.grid[4] and self.grid[4] != self.grid[14]):
                 tally2 = tally2 + 4
 
             if self.grid[3] == self.grid[13]:
                 tally2 = tally2 + 0
                 # elif self.currentLocation == 13:
                 #   tally = tally + 0
-            elif self.grid[3] == self.grid[12] or self.grid[3] == self.grid[14] or self.grid[3] == self.grid[8]:
+            elif (self.grid[3] == self.grid[12] and self.grid[12] != self.grid[2]) or \
+                    (self.grid[3] == self.grid[14] and self.grid[14] != self.grid[4]) or self.grid[3] == self.grid[8]:
                 tally2 = tally2 + 1
-            elif self.grid[3] == self.grid[11] or self.grid[3] == self.grid[7] or self.grid[3] == self.grid[9]:
+            elif (self.grid[3] == self.grid[11] and self.grid[11] != self.grid[1]) or self.grid[3] == self.grid[7] or \
+                    self.grid[3] == self.grid[9]:
                 tally2 = tally2 + 2
-            elif self.grid[3] == self.grid[10] or self.grid[3] == self.grid[6] or self.grid[3] == self.grid[2] or \
-                    self.grid[3] == self.grid[4]:
+            elif (self.grid[3] == self.grid[10] and self.grid[10] != self.grid[0]) or self.grid[3] == self.grid[6] or \
+                    self.grid[3] == self.grid[2] or (self.grid[3] == self.grid[4] and self.grid[4] != self.grid[14]):
                 tally2 = tally2 + 3
-            elif self.grid[3] == self.grid[5] or self.grid[3] == self.grid[1]:
+            elif self.grid[3] == self.grid[5] or (self.grid[3] == self.grid[1] and self.grid[1] != self.grid[11]):
                 tally2 = tally2 + 4
-            elif self.grid[3] == self.grid[0]:
+            elif (self.grid[3] == self.grid[0] and self.grid[0] != self.grid[10]):
                 tally2 = tally2 + 5
 
             if self.grid[4] == self.grid[14]:
                 tally2 = tally2 + 0
                 # elif self.currentLocation == 14:
                 #   tally = tally + 0
-            elif self.grid[4] == self.grid[13] or self.grid[4] == self.grid[9]:
+            elif (self.grid[4] == self.grid[13] and self.grid[13] != self.grid[3]) or self.grid[4] == self.grid[9]:
                 tally2 = tally2 + 1
-            elif self.grid[4] == self.grid[12] or self.grid[4] == self.grid[8]:
+            elif (self.grid[4] == self.grid[12] and self.grid[12] != self.grid[2]) or self.grid[4] == self.grid[8]:
                 tally2 = tally2 + 2
-            elif self.grid[4] == self.grid[11] or self.grid[4] == self.grid[7] or self.grid[4] == self.grid[3]:
+            elif (self.grid[4] == self.grid[11] and self.grid[11] != self.grid[1]) or self.grid[4] == self.grid[7] or \
+                    (self.grid[4] == self.grid[3] and self.grid[3] != self.grid[13]):
                 tally2 = tally2 + 3
-            elif self.grid[4] == self.grid[10] or self.grid[4] == self.grid[6] or self.grid[4] == self.grid[2]:
+            elif (self.grid[4] == self.grid[10] and self.grid[10] != self.grid[0]) or self.grid[4] == self.grid[6] or \
+                    (self.grid[4] == self.grid[2] and self.grid[2] != self.grid[12]):
                 tally2 = tally2 + 4
-            elif self.grid[4] == self.grid[5] or self.grid[4] == self.grid[1]:
+            elif self.grid[4] == self.grid[5] or (self.grid[4] == self.grid[1] and self.grid[1] != self.grid[11]):
                 tally2 = tally2 + 5
-            elif self.grid[4] == self.grid[0]:
+            elif self.grid[4] == self.grid[0] and self.grid[0] != self.grid[10]:
                 tally2 = tally2 + 6
 
             if tally > tally2:
@@ -363,13 +388,13 @@ class PathFinder:
             if numCandyTypes == 3 and int((time.time() - beginTime) * 1000) > 50000:
                 break
             #level2
-            if numCandyTypes == 4 and int((time.time() - beginTime) * 1000) > 1100:
+            if numCandyTypes == 4 and int((time.time() - beginTime) * 1000) > 11000:
                 break
             #level3
             if numCandyTypes == 5 and int((time.time() - beginTime) * 1000) > 7900:
                 break
             #level4
-            if numCandyTypes == 6 and int((time.time() - beginTime) * 1000) > 3000:
+            if numCandyTypes == 6 and int((time.time() - beginTime) * 1000) > 5000:
                 break
         #This only happens if the loop above gets broken without a solution
         #It is nearly identical except this time it is a best first search
