@@ -43,9 +43,27 @@ class IO(object):
         thefile.write("\n")
 
     @staticmethod
-    def printResult2(solution, result, numOfMoves, *timeTaken):
+    def printResult2(solution, result, numOfMoves, allGrids, *timeTaken):
         thefile = open('Output.txt', 'w')
         for index in range(len(solution)): #Loops through solutions
+            for i in range(len(allGrids[index])):
+                thefile.write('Number of moves: ' + str(i))
+                thefile.write('---------------------' + '\n')
+                thefile.write(
+                    '| ' + allGrids[index][i][0] + ' | ' + allGrids[index][i][1] + ' | ' + allGrids[index][i][
+                        2] + ' | ' + allGrids[index][i][3] + ' | ' + allGrids[index][i][4] + ' |' + '\n')
+                thefile.write('---------------------' + '\n')
+                thefile.write(
+                    '| ' + allGrids[index][i][5] + ' | ' + allGrids[index][i][6] + ' | ' + allGrids[index][i][
+                        7] + ' | ' + allGrids[index][i][8] + ' | ' + allGrids[index][i][9] + ' |' + '\n')
+                thefile.write('---------------------' + '\n')
+                thefile.write('| ' + allGrids[index][i][10] + ' | ' + allGrids[index][i][11] + ' | ' +
+                              allGrids[index][i][
+                          12] + ' | ' + allGrids[index][i][13] + ' | ' + allGrids[index][i][14] + ' |' + '\n')
+                thefile.write('---------------------' + '\n')
+                thefile.write("\n")
+
+
             thefile.write("Puzzle: " + str(index + 1))
             thefile.write("\n")
             thefile.write("Solution: ")
