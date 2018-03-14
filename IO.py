@@ -46,20 +46,20 @@ class IO(object):
     def printResult2(solution, result, numOfMoves, allGrids, *timeTaken):
         thefile = open('Output.txt', 'w')
         for index in range(len(solution)): #Loops through solutions
-            for i in range(len(allGrids)):
+            for i in range(len(allGrids[index])):
                 thefile.write('Number of moves: ' + str(i))
                 thefile.write('---------------------' + '\n')
                 thefile.write(
-                    '| ' + allGrids[i][0] + ' | ' + allGrids[i][1] + ' | ' + allGrids[i][
-                        2] + ' | ' + allGrids[i][3] + ' | ' + allGrids[i][4] + ' |' + '\n')
+                    '| ' + allGrids[index][i][0] + ' | ' + allGrids[index][i][1] + ' | ' + allGrids[index][i][
+                        2] + ' | ' + allGrids[index][i][3] + ' | ' + allGrids[index][i][4] + ' |' + '\n')
                 thefile.write('---------------------' + '\n')
                 thefile.write(
-                    '| ' + allGrids[i][5] + ' | ' + allGrids[i][6] + ' | ' + allGrids[i][
-                        7] + ' | ' + allGrids[i][8] + ' | ' + allGrids[i][9] + ' |' + '\n')
+                    '| ' + allGrids[index][i][5] + ' | ' + allGrids[index][i][6] + ' | ' + allGrids[index][i][
+                        7] + ' | ' + allGrids[index][i][8] + ' | ' + allGrids[index][i][9] + ' |' + '\n')
                 thefile.write('---------------------' + '\n')
-                thefile.write('| ' + allGrids[i][10] + ' | ' + allGrids[i][11] + ' | ' +
-                      allGrids[i][
-                          12] + ' | ' + allGrids[i][13] + ' | ' + allGrids[i][14] + ' |' + '\n')
+                thefile.write('| ' + allGrids[index][i][10] + ' | ' + allGrids[index][i][11] + ' | ' +
+                              allGrids[index][i][
+                          12] + ' | ' + allGrids[index][i][13] + ' | ' + allGrids[index][i][14] + ' |' + '\n')
                 thefile.write('---------------------' + '\n')
                 thefile.write("\n")
 

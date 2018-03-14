@@ -436,12 +436,13 @@ if __name__ == "__main__":
     print('Would you like to run the automated pathfinder? (enter y or n)')
     answer = input()
     if answer == 'y':
-        allLevels = IO.IO().readInitial('InputFile.txt')
+        allLevels = IO.IO().readInitial('Input.txt')
         print("Starting... ")
         solutions = []
         allMoves = []
         completedLevels = []
         startTime = time.time()
+        allAllGrids = []
         for index in range(len(allLevels)):
             currentLevel = allLevels[index]
             #print(index)
@@ -452,10 +453,11 @@ if __name__ == "__main__":
             solutions.append(pf.solutionPath)
             allMoves.append(pf.solutionPath.__len__())
             completedLevels.append(pf.winGrid)
+            allAllGrids.append(pf.allGrids)
 
         endTime = time.time()
         totalTime = int((endTime - startTime) * 1000)
-        IO.IO().printResult2(solutions, completedLevels, allMoves, pf.allGrids, totalTime)
+        IO.IO().printResult2(solutions, completedLevels, allMoves, allAllGrids, totalTime)
         print("Total time taken: " + str(totalTime))
         sum = 0
         for index in range(len(allMoves)):
