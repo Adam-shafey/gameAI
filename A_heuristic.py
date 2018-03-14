@@ -6,11 +6,10 @@ import Game
 
 #each state of the grid, which is our array
 class State(object):
-    def __init__(self, grid, parent, currentLocation, move = 0, start = 0):
-        self.children = []
-        self.parent = parent
+    def __init__(self, grid, parent, currentLocation, move = 0, start_grid = 0):
         self.grid = grid
-        self.dist = 0
+        self.parent = parent
+        self.children = []
         self.solutionPath = []
         self.move = move
 
@@ -24,17 +23,17 @@ class State(object):
             # adding 65 to the int in chr will give you the correct A-O ascii
             self.solutionPath.append(chr(self.currentLocation + 65))
             self.depth = len(self.solutionPath)
-            self.start = parent.start
+            self.start_grid = parent.start_grid
             self.goal = self.winCondition()
-            self.dist = self.Distance()
+            self.distance = self.getDistance()
         #this is the root node, the starting state
         else:
             self.path = [grid]
             self.depth = 0
-            self.start = start
+            self.start_grid = start_grid
             self.currentLocation = self.getCurrentLoc()
             self.goal = self.winCondition()
-            self.dist = self.Distance()
+            self.distance = self.getDistance()
     #this works very similarly to what we have in Game.py
     #when a child is initialized, it takes the currentLocation given by the parent
     #then the swap function takes place
@@ -73,7 +72,7 @@ class State(object):
     #The idea here is that if the goal is met, the distance to goal is zero
     #The more matches exist, the closer it is to the goal
     #The less difference there is between the left side and the right side, the closer it is to the goal
-    def Distance(self):
+    def getDistance(self):
         #The distance is zero if the goal is met
         if self.goal == True:
             return 0
@@ -346,43 +345,42 @@ class State(object):
 
 #The magic happens here baby! Ooooh yeah...
 class PathFinder:
-    def __init__(self, start):
+    def __init__(self, start_grid):
         self.path = []
         self.solutionPath = []
-        self.visitedQueue = []
-        self.priorityQueue = PriorityQueue()
-        self.open = []
-        self.start = start
-        self.stack = LifoQueue()
+        self.open = PriorityQueue()
+        self.closed = []
+        self.start_grid = start_grid
         self.winGrid = []
 
 #This is the method that finds the solution
-    def Solve(self):
-        startState = State(self.start, 0, 0, self.start)
-        x = set(startState.grid) and set(startState.grid)
+    def findPath(self):
+        root = State(self.start_grid, 0, 0, self.start_grid)
+        x = set(root.grid) and set(root.grid)
         #this tells us what kind of level situation we have
         numCandyTypes = len(x) - 1
         count = 0
-        self.priorityQueue.put((0, count, startState))
+        self.open.put((0, count, root))
         beginTime = time.time()
 
         #This is an A algorithm
-        while(not self.path):
-            nearestChild = self.priorityQueue.get()[2]
-            nearestChild.makeABaby()
+        while(not self.solutionPath):
+            bestState = self.open.get()[2]
+            bestState.makeABaby()
            # print(len(closestChild.path))
-            self.visitedQueue.append(nearestChild.grid)
-            for child in nearestChild.children:
-                if child.grid not in self.visitedQueue:
-                    count += 1
+            self.closed.append(bestState.grid)
+            for child in bestState.children:
+                if child.grid not in self.closed:
                     if child.goal:
                         self.path = child.path
                         self.solutionPath = child.solutionPath
                         self.winGrid = child.grid
+                        #print(count)
                         #print(child.grid)
                         break
                     else:
-                        self.priorityQueue.put((child.dist + child.depth, count, child))
+                        count += 1
+                        self.open.put((child.distance + child.depth, count, child))
             #These will break the loop if any solution is taking too long
             #level1
             if numCandyTypes == 3 and int((time.time() - beginTime) * 1000) > 50000:
@@ -398,27 +396,28 @@ class PathFinder:
                 break
         #This only happens if the loop above gets broken without a solution
         #It is nearly identical except this time it is a best first search
-        if not self.path:
-            self.visitedQueue = []
-            self.priorityQueue = PriorityQueue()
+        if not self.solutionPath:
+            self.closed = []
+            self.open = PriorityQueue()
             count = 0
-            self.priorityQueue.put((0, count, startState))
-            while (not self.path):
-                nearestChild = self.priorityQueue.get()[2]
-                nearestChild.makeABaby()
-                self.visitedQueue.append(nearestChild.grid)
-                for child in nearestChild.children:
-                    if child.grid not in self.visitedQueue:
-                        count += 1
+            self.open.put((0, count, root))
+            while (not self.solutionPath):
+                bestState = self.open.get()[2]
+                bestState.makeABaby()
+                self.closed.append(bestState.grid)
+                for child in bestState.children:
+                    if child.grid not in self.closed:
                         if child.goal:
                             self.path = child.path
                             self.solutionPath = child.solutionPath
                             self.winGrid = child.grid
                             print("OptionalPath")
+                           #print(count)
                             #print(child.grid)
                             break
                         else:
-                            self.priorityQueue.put((child.dist, count, child))
+                            count += 1
+                            self.open.put((child.distance, count, child))
         return self.solutionPath
 
 
@@ -430,23 +429,22 @@ if __name__ == "__main__":
     print('Would you like to run the automated pathfinder? (enter y or n)')
     answer = input()
     if answer == 'y':
-        start1 = IO.IO().readInitial('InputFile.txt')
+        allLevels = IO.IO().readInitial('InputFile.txt')
         print("Starting... ")
-        starter = start1[0]
         solutions = []
         allMoves = []
         completedLevels = []
         startTime = time.time()
-        for index in range(len(start1)):
-            starter = start1[index]
+        for index in range(len(allLevels)):
+            currentLevel = allLevels[index]
             #print(index)
-            a = PathFinder(starter)
-            a.Solve()
+            pf = PathFinder(currentLevel)
+            pf.findPath()
             #print(a.solutionPath.__len__())
             #print(a.solutionPath)
-            solutions.append(a.solutionPath)
-            allMoves.append(a.solutionPath.__len__())
-            completedLevels.append(a.winGrid)
+            solutions.append(pf.solutionPath)
+            allMoves.append(pf.solutionPath.__len__())
+            completedLevels.append(pf.winGrid)
 
         endTime = time.time()
         totalTime = int((endTime - startTime) * 1000)
