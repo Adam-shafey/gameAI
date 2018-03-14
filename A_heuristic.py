@@ -12,6 +12,7 @@ class State(object):
         self.children = []
         self.solutionPath = []
         self.move = move
+        self.allGrids = []
 
         #if a parent exists, i.e. the state is a child of another state
         if parent:
@@ -26,6 +27,8 @@ class State(object):
             self.start_grid = parent.start_grid
             self.goal = self.winCondition()
             self.distance = self.getDistance()
+            self.allGrids = parent.allGrids[:]
+            self.allGrids.append(grid)
         #this is the root node, the starting state
         else:
             self.path = [grid]
@@ -34,6 +37,7 @@ class State(object):
             self.currentLocation = self.getCurrentLoc()
             self.goal = self.winCondition()
             self.distance = self.getDistance()
+            self.allGrids.append(grid)
     #this works very similarly to what we have in Game.py
     #when a child is initialized, it takes the currentLocation given by the parent
     #then the swap function takes place
@@ -352,6 +356,7 @@ class PathFinder:
         self.closed = []
         self.start_grid = start_grid
         self.winGrid = []
+        self.allGrids = []
 
 #This is the method that finds the solution
     def findPath(self):
@@ -375,6 +380,7 @@ class PathFinder:
                         self.path = child.path
                         self.solutionPath = child.solutionPath
                         self.winGrid = child.grid
+                        self.allGrids = child.allGrids
                         #print(count)
                         #print(child.grid)
                         break
@@ -411,6 +417,7 @@ class PathFinder:
                             self.path = child.path
                             self.solutionPath = child.solutionPath
                             self.winGrid = child.grid
+                            self.allGrids = child.allGrids
                             print("OptionalPath")
                            #print(count)
                             #print(child.grid)
@@ -448,7 +455,7 @@ if __name__ == "__main__":
 
         endTime = time.time()
         totalTime = int((endTime - startTime) * 1000)
-        IO.IO().printResult2(solutions, completedLevels, allMoves, totalTime)
+        IO.IO().printResult2(solutions, completedLevels, allMoves, pf.allGrids, totalTime)
         print("Total time taken: " + str(totalTime))
         sum = 0
         for index in range(len(allMoves)):
