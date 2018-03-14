@@ -76,8 +76,8 @@ class State(object):
         #The distance is zero if the goal is met
         if self.goal == True:
             return 0
-        #if empty space is in the first five spaces, it takes the last 5 spaces,
-        #then compares the distance of the matching value to the first 5 spaces
+        #This tallies up the distance of the nearest matching char to its proper position on the opposing side
+        #It tallies this for both the top and bottom side so there are 2 tallies
         else:
             tally = 0
 
