@@ -12,7 +12,7 @@ class State(object):
         self.children = []
         self.solutionPath = []
         self.move = move
-        self.allGrids = []
+
 
         #if a parent exists, i.e. the state is a child of another state
         if parent:
@@ -27,8 +27,7 @@ class State(object):
             self.start_grid = parent.start_grid
             self.goal = self.winCondition()
             self.distance = self.getDistance()
-            self.allGrids = parent.allGrids[:]
-            self.allGrids.append(grid)
+
         #this is the root node, the starting state
         else:
             self.path = [grid]
@@ -37,7 +36,7 @@ class State(object):
             self.currentLocation = self.getCurrentLoc()
             self.goal = self.winCondition()
             self.distance = self.getDistance()
-            self.allGrids.append(grid)
+
     #this works very similarly to what we have in Game.py
     #when a child is initialized, it takes the currentLocation given by the parent
     #then the swap function takes place
@@ -356,7 +355,7 @@ class PathFinder:
         self.closed = []
         self.start_grid = start_grid
         self.winGrid = []
-        self.allGrids = []
+
 
 #This is the method that finds the solution
     def findPath(self):
@@ -372,7 +371,6 @@ class PathFinder:
         while(not self.solutionPath):
             bestState = self.open.get()[2]
             bestState.makeABaby()
-           # print(len(closestChild.path))
             self.closed.append(bestState.grid)
             for child in bestState.children:
                 if child.grid not in self.closed:
@@ -380,7 +378,6 @@ class PathFinder:
                         self.path = child.path
                         self.solutionPath = child.solutionPath
                         self.winGrid = child.grid
-                        self.allGrids = child.allGrids
                         #print(count)
                         #print(child.grid)
                         break
@@ -392,10 +389,10 @@ class PathFinder:
             if numCandyTypes == 3 and int((time.time() - beginTime) * 1000) > 50000:
                 break
             #level2
-            if numCandyTypes == 4 and int((time.time() - beginTime) * 1000) > 11000:
+            if numCandyTypes == 4 and int((time.time() - beginTime) * 1000) > 3000:
                 break
             #level3
-            if numCandyTypes == 5 and int((time.time() - beginTime) * 1000) > 7900:
+            if numCandyTypes == 5 and int((time.time() - beginTime) * 1000) > 6900:
                 break
             #level4
             if numCandyTypes == 6 and int((time.time() - beginTime) * 1000) > 5000:
@@ -417,9 +414,8 @@ class PathFinder:
                             self.path = child.path
                             self.solutionPath = child.solutionPath
                             self.winGrid = child.grid
-                            self.allGrids = child.allGrids
                             print("OptionalPath")
-                           #print(count)
+                           # print(count)
                             #print(child.grid)
                             break
                         else:
@@ -436,13 +432,13 @@ if __name__ == "__main__":
     print('Would you like to run the automated pathfinder? (enter y or n)')
     answer = input()
     if answer == 'y':
-        allLevels = IO.IO().readInitial('Input.txt')
+        allLevels = IO.IO().readInitial('InputFile.txt')
         print("Starting... ")
         solutions = []
         allMoves = []
         completedLevels = []
         startTime = time.time()
-        allAllGrids = []
+        allGrids = []
         for index in range(len(allLevels)):
             currentLevel = allLevels[index]
             #print(index)
@@ -453,11 +449,11 @@ if __name__ == "__main__":
             solutions.append(pf.solutionPath)
             allMoves.append(pf.solutionPath.__len__())
             completedLevels.append(pf.winGrid)
-            allAllGrids.append(pf.allGrids)
+            allGrids.append(pf.path)
 
         endTime = time.time()
         totalTime = int((endTime - startTime) * 1000)
-        IO.IO().printResult2(solutions, completedLevels, allMoves, allAllGrids, totalTime)
+        IO.IO().printResult2(solutions, completedLevels, allMoves, allGrids, totalTime)
         print("Total time taken: " + str(totalTime))
         sum = 0
         for index in range(len(allMoves)):
