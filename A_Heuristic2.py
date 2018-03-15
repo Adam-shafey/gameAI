@@ -617,10 +617,10 @@ class PathFinder:
                             self.open.put((int(child.distance * 1.14) + int(child.depth / 1.14), count, child))
                         elif numCandyTypes == 4 and int((time.time() - beginTime) * 1000) < 2500:
                             self.open.put((int(child.distance * 1.19) + int(child.depth / 1.19), count, child))
-                        elif numCandyTypes == 4 and int((time.time() - beginTime) * 1000) < 4500:
+                        elif numCandyTypes == 4 and int((time.time() - beginTime) * 1000) < 3000:
                             self.open.put((int(child.distance * 1.25) + int(child.depth / 1.25), count, child))
                         elif numCandyTypes == 4:
-                            self.open.put((int(child.distance * 1.3) + int(child.depth / 1.3), count, child))
+                            self.open.put((int(child.distance * 1.41) + int(child.depth / 1.38), count, child))
 
                         if numCandyTypes == 5 and int((time.time() - beginTime) * 1000) < 900:
                             self.open.put((int(child.distance * 1.1) + int(child.depth/1.06), count, child))
