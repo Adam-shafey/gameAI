@@ -622,27 +622,27 @@ class PathFinder:
                         elif numCandyTypes == 4:
                             self.open.put((int(child.distance * 1.3) + int(child.depth / 1.3), count, child))
 
-                        if numCandyTypes == 5 and int((time.time() - beginTime) * 1000) < 7500:
+                        if numCandyTypes == 5 and int((time.time() - beginTime) * 1000) < 900:
                             self.open.put((int(child.distance * 1.1) + int(child.depth/1.06), count, child))
-                        elif numCandyTypes == 5 and int((time.time() - beginTime) * 1000) < 15000:
-                            self.open.put((int(child.distance * 1.14) + int(child.depth / 1.06), count, child))
-                        elif numCandyTypes == 5 and int((time.time() - beginTime) * 1000) < 30000:
-                            self.open.put((int(child.distance * 1.19) + int(child.depth / 1.15), count, child))
-                        elif numCandyTypes == 5 and int((time.time() - beginTime) * 1000) < 45000:
+                        elif numCandyTypes == 5 and int((time.time() - beginTime) * 1000) < 3700:
+                            self.open.put((int(child.distance * 1.13) + int(child.depth / 1.07), count, child))
+                        elif numCandyTypes == 5 and int((time.time() - beginTime) * 1000) < 4500:
+                            self.open.put((int(child.distance * 1.17) + int(child.depth / 1.15), count, child))
+                        elif numCandyTypes == 5 and int((time.time() - beginTime) * 1000) < 6750:
                             self.open.put((int(child.distance * 1.25) + int(child.depth / 1.25), count, child))
                         elif numCandyTypes == 5:
-                            self.open.put((int(child.distance * 1.3) + int(child.depth / 1.3), count, child))
+                            self.open.put((int(child.distance * 1.41) + int(child.depth / 1.38), count, child))
 
-                        if numCandyTypes == 6 and int((time.time() - beginTime) * 1000) < 750:
+                        if numCandyTypes == 6 and int((time.time() - beginTime) * 1000) < 1000:
                             self.open.put((int(child.distance * 1.1) + int(child.depth/1.06), count, child))
-                        elif numCandyTypes == 6 and int((time.time() - beginTime) * 1000) < 1500:
-                            self.open.put((int(child.distance * 1.14) + int(child.depth / 1.06), count, child))
+                        elif numCandyTypes == 6 and int((time.time() - beginTime) * 1000) < 2000:
+                            self.open.put((int(child.distance * 1.14) + int(child.depth / 1.13), count, child))
                         elif numCandyTypes == 6 and int((time.time() - beginTime) * 1000) < 3000:
-                            self.open.put((int(child.distance * 1.19) + int(child.depth / 1.15), count, child))
+                            self.open.put((int(child.distance * 1.19) + int(child.depth / 1.16), count, child))
                         elif numCandyTypes == 6 and int((time.time() - beginTime) * 1000) < 4500:
-                            self.open.put((int(child.distance * 1.25) + int(child.depth / 1.25), count, child))
+                            self.open.put((int(child.distance * 1.25) + int(child.depth / 1.21), count, child))
                         elif numCandyTypes == 6:
-                            self.open.put((int(child.distance * 1.3) + int(child.depth / 1.3), count, child))
+                            self.open.put((int(child.distance * 1.41) + int(child.depth / 1.38), count, child))
 
         return self.solutionPath
 
